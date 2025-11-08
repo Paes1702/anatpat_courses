@@ -1,0 +1,84 @@
+<!DOCTYPE ejs>
+<html lang="en">
+
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        background: url('assets/unicamp-blur.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .form-signin {
+        width: 100%;
+        max-width: 35%;
+        min-width: 330px;
+        padding: 20px;
+        margin: auto;
+    }
+
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
+</style>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+
+    <!-- <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon"> -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
+
+    <script src="sweetalert/sweetalert2.min.js"></script>
+    <script src="inputmask/inputmask.min.js"></script>
+    
+</head>
+<body class="text-center">
+    <main class="form-signin card shadow">
+            <div class="row gx-3 gy-3">
+                <div class="col-12">
+                    <!-- <img src="assets/unicamp-logo-fixed.png" width="64px" height="64px" alt=""> -->
+                    <h5>Curso Uropatologia <%= new Date().getFullYear(); %></h5>
+                    <h5></h5>
+                </div>
+                <div class="col-12">
+                    <form action="" method="post">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" value="">
+                        <label for="cpf">CPF</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Senha" value="">
+                        <label for="password">Senha</label>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                    <button class="btn btn-outline-success px-4" type="submit">Entrar</button>
+                    <a href="" class="btn btn-outline-primary px-4">Registrar-se</a>
+                </div>                
+                <div class="text-center mt-3">
+                    <a href="" class="link-secondary text-decoration-none">Esqueci minha senha</a>
+                </div>
+            </div>
+        </form>
+    </main>
+    <script src="util/inputmask.js"></script>
+</body>
+</html>

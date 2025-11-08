@@ -1,0 +1,228 @@
+<!doctype ejs>
+<html lang="en">
+
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        background: url("assets/unicamp-blur.jpg") no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .form-signin {
+        width: 100%;
+        max-width: 60%;
+        min-width: 330px;
+        padding: 20px;
+        margin: auto;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
+</style>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro</title>
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
+
+    <script src="sweetalert/sweetalert2.min.js"></script>
+    <script src="inputmask/inputmask.min.js"></script>
+
+    <style>
+        .swal-text {
+            text-align: justify;
+        }
+    </style>
+
+    <script>
+
+        function showTerms() {
+            let text =  "Este site precisa utilizar as seguintes informações pessoais "
+            text +=     "para cadatrá-lo no Curso Uropatologia 2024 "
+            text +=     "2022 online:\n\n"
+            text +=     "- Nome Completo\n"
+            text +=     "- Número de RG\n"
+            text +=     "- Número de CPF\n"
+            text +=     "- Endereço Residêncial\n"
+            text +=     "- Telefones\n\n"
+            text +=     "A partir de sua aprovação, a aplicação mencionada acima "
+            text +=     "permitirá que o Curso de Uropatologia 2024 "
+            text +=     "2022 utilize as informações acima, respeitando os termos  de "
+            text +=     "uso e a politica de privacidade, segundo a Lei Geral de Proteção "
+            text +=     "de Dados Pessoais (LGPD).\n\n"
+            text +=     "http://www.planalto.gov.br/ccivil_03/_Ato2015-2018/2018/Lei/L13709compilado.htm"
+            swal({
+                title: "Termos de contrato",
+                text: text,
+                icon: "info",
+                button: "Fechar",
+            });
+        }
+
+        // $(document).ready(function () {
+        //     <?php if (isset($success)) {
+        //         if ($success) {?>
+        //             swal({
+        //                 title: "Sucesso!",
+        //                 text: "Você foi registrado",
+        //                 // "warning", "error", "success" or "info"
+        //                 icon: "success",
+        //                 button: "Entendido",
+        //             }).then((value) => {
+        //                 window.location.href = "<=site_url('login')?>";
+        //             });
+        //         <?php }
+        //         else {?>
+        //             swal({
+        //                 title: "Erro!",
+        //                 text: "Não foi possível concluir o registro",
+        //                 icon: "error",
+        //                 button: "Ok"
+        //             });
+        //         <?php }
+        //     }?>
+        //     $('#termsLink').click(() => {
+        //         showTerms();
+        //     });
+        //     $('#cep').mask('00.000-000');
+        //     $('#phone').mask('(00) 00000-0000');
+        //     $('#cpf').mask('000.000.000-00');
+        // });
+    </script>
+</head>
+
+<body class="text-center">
+    <main class="form-signin card shadow align-middle">
+        <form action="" method="post">
+            <div class="row gx-3 gy-3">
+                <div class="col-12">
+                    <!-- <img src="assets/unicamp-logo-fixed.png" width="64px" height="64px" alt=""> -->
+                    <h5>Curso Uropatologia 2024</h5>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="name" id="name" name="name" value="">
+                        <label for="name">Nome</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="address" placeholder="address" name="address" value="">
+                        <label for="address">Endereço</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="city" placeholder="city" name="city" value="">
+                        <label for="city">Cidade</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <select class="form-select" name="state">
+                            <option value="" selected disabled>Selecione o estado</option>
+                            <% states.forEach(state => { %>
+                                <option value="<%= state.name %>"><%= state.name %></option>
+                            <% }) %>
+                        </select>
+                        <label>Estado</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="cep" placeholder="cep" name="cep" value="">
+                        <label for="cep">CEP</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="phone" placeholder="phone" name="phone" value="">
+                        <label for="phone">Celular</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="email" placeholder="email" name="email" value="">
+                        <label for="email">E-Mail</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="cpf" placeholder="cpf" name="cpf" value="">
+                        <label for="cpf">CPF</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="rg" placeholder="rg" name="rg" value="">
+                        <label for="rg">RG</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="crm" placeholder="crm" name="crm" value="">
+                        <label for="crm">CRM</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-floating">
+                        <select class="form-select" name="crmState">
+                            <option value="" selected disabled>Selecione o estado</option>
+                            <% states.forEach(state => { %>
+                                <option value="<%= state.uf %>"><%= state.uf %></option>
+                            <% }) %>
+                        </select>
+                        <label>UF/CRM</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" placeholder="password" name="password" value="">
+                        <label for="password">Senha</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="passwordConfirmation" placeholder="passwordConfirmation" name="passwordConfirmation" value="">
+                        <label for="passwordConfirmation">Confirme sua Senha</label>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-12 col-md-12 col-lg-6 align-self-center">
+                    <input type="checkbox" id="terms" placeholder="terms" name="terms" required>
+                    <label for="terms">Aceito os <a href="#" id="termsLink">termos de contrato</a></label>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <button class="w-100 h-100 btn btn-lg btn-outline-danger" name="submit" type="submit">Registrar-se</button>
+                </div> -->
+                <div class="d-grid gap-2 mt-3">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <input type="checkbox" id="terms" name="terms" required class="me-2">
+                        <label for="terms" class="mb-0">Aceito os <a href="#" id="termsLink">termos de contrato</a></label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button class="btn btn-outline-danger px-4" name="submit" type="submit">Registrar-se</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+    <script src="util/inputmask.js"></script>
+</body>
+</html>
