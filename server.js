@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const ejs = require('ejs')
 const statesData = require('./assets/data/br-states.json')
+const Swal = require('sweetalert2')
 const _port = 3000
 
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'))
@@ -15,8 +16,8 @@ app.set('views', './views');
 
 
 app.get('/', (req, res) => {
-  res.render('login-page')
-//   res.render('register-page', { states: statesData.states })
+//   res.render('login-page')
+  res.render('register-page', { states: statesData.states })
 })
 
 app.listen(_port, (error) =>{

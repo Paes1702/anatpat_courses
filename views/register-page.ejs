@@ -43,6 +43,8 @@
     <script src="bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
 
     <script src="sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert/sweetalert2.min.css">
+
     <script src="inputmask/inputmask.min.js"></script>
 
     <style>
@@ -54,67 +56,51 @@
     <script>
 
         function showTerms() {
-            let text =  "Este site precisa utilizar as seguintes informações pessoais "
-            text +=     "para cadatrá-lo no Curso Uropatologia 2024 "
-            text +=     "2022 online:\n\n"
-            text +=     "- Nome Completo\n"
-            text +=     "- Número de RG\n"
-            text +=     "- Número de CPF\n"
-            text +=     "- Endereço Residêncial\n"
-            text +=     "- Telefones\n\n"
-            text +=     "A partir de sua aprovação, a aplicação mencionada acima "
-            text +=     "permitirá que o Curso de Uropatologia 2024 "
-            text +=     "2022 utilize as informações acima, respeitando os termos  de "
-            text +=     "uso e a politica de privacidade, segundo a Lei Geral de Proteção "
-            text +=     "de Dados Pessoais (LGPD).\n\n"
-            text +=     "http://www.planalto.gov.br/ccivil_03/_Ato2015-2018/2018/Lei/L13709compilado.htm"
-            swal({
+            const currentYear = new Date().getFullYear()
+            Swal.fire({
                 title: "Termos de contrato",
-                text: text,
+                html: `
+                    Este site precisa utilizar as seguintes informações pessoais 
+                    para cadastrá-lo no Curso Uropatologia ${currentYear} online:
+                    <p>- Nome Completo</p>
+                    <p>- Número de RG</p>
+                    <p>- Número de CPF</p>
+                    <p>- Endereço Residencial</p>
+                    <p>- Telefone</p>
+                    A partir de sua aprovação, a aplicação mencionada acima
+                    permitirá que o Curso de Uropatologia ${currentYear}
+                    utilize as informações acima, respeitando os termos  de
+                    uso e a politica de privacidade, segundo a Lei Geral de Proteção 
+                    de Dados Pessoais (LGPD).
+                    <p>
+                        <a href="http://www.planalto.gov.br/ccivil_03/_Ato2015-2018/2018/Lei/L13709compilado.htm">LEI Nº 13.709, DE 14 DE AGOSTO DE 2018</a>
+                    </p>
+                `,
                 icon: "info",
-                button: "Fechar",
+                showConfirmButton: true
             });
         }
 
-        // $(document).ready(function () {
-        //     <?php if (isset($success)) {
-        //         if ($success) {?>
-        //             swal({
-        //                 title: "Sucesso!",
-        //                 text: "Você foi registrado",
-        //                 // "warning", "error", "success" or "info"
-        //                 icon: "success",
-        //                 button: "Entendido",
-        //             }).then((value) => {
-        //                 window.location.href = "<=site_url('login')?>";
-        //             });
-        //         <?php }
-        //         else {?>
-        //             swal({
-        //                 title: "Erro!",
-        //                 text: "Não foi possível concluir o registro",
-        //                 icon: "error",
-        //                 button: "Ok"
-        //             });
-        //         <?php }
-        //     }?>
-        //     $('#termsLink').click(() => {
-        //         showTerms();
-        //     });
-        //     $('#cep').mask('00.000-000');
-        //     $('#phone').mask('(00) 00000-0000');
-        //     $('#cpf').mask('000.000.000-00');
-        // });
+        function checkTerms(e) {            
+            if(!document.getElementById('terms').checked){
+                e.preventDefault()
+                Swal.fire({
+                    title: "Erro!",
+                    text: "É necessário aceitar os termos para concluir o registro",
+                    icon: "error",
+                    showConfirmButton: true
+                })
+            }            
+        }
     </script>
 </head>
 
 <body class="text-center">
     <main class="form-signin card shadow align-middle">
-        <form action="" method="post">
+        <form action="" method="post" id="registerForm">
             <div class="row gx-3 gy-3">
                 <div class="col-12">
-                    <!-- <img src="assets/unicamp-logo-fixed.png" width="64px" height="64px" alt=""> -->
-                    <h5>Curso Uropatologia 2024</h5>
+                    <h5>Curso Uropatologia <%= new Date().getFullYear() %></h5>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6">
                     <div class="form-floating">
@@ -204,20 +190,13 @@
                         <label for="passwordConfirmation">Confirme sua Senha</label>
                     </div>
                 </div>
-                <!-- <div class="col-sm-12 col-md-12 col-lg-6 align-self-center">
-                    <input type="checkbox" id="terms" placeholder="terms" name="terms" required>
-                    <label for="terms">Aceito os <a href="#" id="termsLink">termos de contrato</a></label>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <button class="w-100 h-100 btn btn-lg btn-outline-danger" name="submit" type="submit">Registrar-se</button>
-                </div> -->
                 <div class="d-grid gap-2 mt-3">
                     <div class="d-flex justify-content-center align-items-center">
-                        <input type="checkbox" id="terms" name="terms" required class="me-2">
-                        <label for="terms" class="mb-0">Aceito os <a href="#" id="termsLink">termos de contrato</a></label>
+                        <input type="checkbox" id="terms" name="terms" required class="me-2" data-optional>
+                        <label for="terms" class="mb-0">Aceito os <a href="#" id="termsLink" onclick="showTerms()">termos de contrato</a></label>
                     </div>
                     <div class="d-flex justify-content-center mt-2">
-                        <button class="btn btn-outline-danger px-4" name="submit" type="submit">Registrar-se</button>
+                        <button class="btn btn-outline-danger px-4" name="submit" type="submit" id="submit" onclick="return checkTerms(event)">Registrar-se</button>
                     </div>
                 </div>
             </div>
