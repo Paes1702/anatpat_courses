@@ -4,6 +4,7 @@
     "bootstrap": "^5.3.8",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "inputmask": "^5.0.9",
     "mongodb": "6.20",
     "sweetalert2": "^11.26.3"
