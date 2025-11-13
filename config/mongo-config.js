@@ -1,18 +1,24 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient } = require("mongodb")
+
+const uri = 'mongodb://localhost:27017/'
+
+let db
+let dbName = 'anatpatdb'
 
 async function mongoConnect() {
-  // Replace the uri string with your connection string
-  const uri = 'mongodb://localhost:27017/';
-  const client = new MongoClient(uri);
+  if (db) return db // se já estiver conectado, retorna a conexão
+
   try {
-    const database = client.db('anatpatdb');
-    const movies = database.collection('users');
-    // Queries for a movie that has a title value of 'Back to the Future'
-    const query = { nome: 'Gabriel' };
-    const movie = await movies.findOne(query);
-    console.log(movie);
-  } finally {
-    await client.close();
+    const client = new MongoClient(uri)
+
+    await client.connect()
+
+    db = client.db(dbName)
+    return db
+
+  } catch (error) {
+    console.error(' Erro ao conectar ao MongoDB:', error)
+    process.exit(1)
   }
 }
 

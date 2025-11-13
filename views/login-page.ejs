@@ -40,11 +40,12 @@
 
     <title>Login</title>
 
-    <!-- <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon"> -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
 
     <script src="sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert/sweetalert2.min.css">
+
     <script src="inputmask/inputmask.min.js"></script>
     
 </head>
@@ -52,26 +53,25 @@
     <main class="form-signin card shadow">
             <div class="row gx-3 gy-3">
                 <div class="col-12">
-                    <!-- <img src="assets/unicamp-logo-fixed.png" width="64px" height="64px" alt=""> -->
                     <h5>Curso Uropatologia <%= new Date().getFullYear(); %></h5>
                     <h5></h5>
                 </div>
                 <div class="col-12">
-                    <form action="" method="post">
+                    <form action="/login" method="post">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" value="">
+                        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
                         <label for="cpf">CPF</label>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-floating">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Senha" value="">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
                         <label for="password">Senha</label>
                     </div>
                 </div>
                 <div class="d-grid gap-2 mt-3">
                     <button class="btn btn-outline-success px-4" type="submit">Entrar</button>
-                    <a href="" class="btn btn-outline-primary px-4">Registrar-se</a>
+                    <a href="/register" class="btn btn-outline-primary px-4">Registrar-se</a>
                 </div>                
                 <div class="text-center mt-3">
                     <a href="" class="link-secondary text-decoration-none">Esqueci minha senha</a>
@@ -79,6 +79,18 @@
             </div>
         </form>
     </main>
+    <% if(typeof error !== 'undefined') { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                Swal.fire({
+                    title: "Erro!",
+                    text: "<%= error %>",
+                    icon: "error",
+                    showConfirmButton: true
+                })
+            })
+        </script>
+    <% } %>
     <script src="util/inputmask.js"></script>
 </body>
 </html>

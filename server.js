@@ -1,10 +1,14 @@
 const express = require('express')
 const app = express()
-// const ejs = require('ejs')
-const statesData = require('./assets/data/br-states.json')
-// const Swal = require('sweetalert2')
-const mongodb = require('./config/mongo-config')
+const session = require('express-session')
+const mongoDB = require('./config/mongo-config')
 const _port = 3000
+const router = require('./routes/index')
+
+const loginRouter = require('./routes/login')
+const homepageRouter = require('./routes/homepage')
+const registerRouter = require('./routes/register')
+
 
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'))
 app.use('/sweetalert', express.static('./node_modules/sweetalert2/dist'))
@@ -12,30 +16,33 @@ app.use('/inputmask', express.static('./node_modules/inputmask/dist'))
 app.use('/util', express.static('./util'))
 app.use('/assets', express.static('./assets'))
 
-app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set('view engine', 'ejs')
+app.set('views', './views')
 
+app.use(express.urlencoded({ extended: false }))
 
-app.get('/', (req, res) => {
-//   res.render('login-page')
-    // let promise = mongodb.RunGetStarted()
-//     try {
-//         const database = client.db('anatpatdb')
-//         const movies = database.collection('users')
-//         // Queries for a movie that has a title value of 'Back to the Future'
-//         const query = { nome: 'Gabriel' }
-//         const movie = promise.then(movies.findOne(query))
-//         console.log(movie);
-//     } finally {
-//         promise.then(client.close())
-//     }
-  res.render('register-page', { states: statesData.states })
+app.use(session({
+  secret: 'meuSegredoSuperSeguro',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 } // 1 hora
+}))
+
+mongoDB().then((db) => {
+    app.locals.db = db
+  
+    router.use(loginRouter)
+    router.use(homepageRouter)
+    router.use(registerRouter)
+    
+    app.use(router)
 })
+
 
 app.listen(_port, (error) =>{
     if(!error)
-        console.log("Server is Running and listening on port "+ _port);
+        console.log("Server is Running and listening on port "+ _port)
     else 
-        console.log("Error occurred, server can't start", error);
+        console.log("Error occurred, server can't start", error)
     }
 );

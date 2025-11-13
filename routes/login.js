@@ -1,13 +1,29 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const mongo = require('../models/Users')
 
 // Rota para a homepage
 router.get('/login', (req, res) => {
-  res.render('login-page');
-});
-
-router.post('/login', function (req, res) {
-  res.send('POST request to the homepage')
+  res.render('login-page')
 })
 
-module.exports = router;
+router.post('/login', async (req, res) => {
+
+    obj = req.body
+
+    let user = await mongo.findUser(req.app.locals.db, {
+        cpf: obj.cpf,
+        password: obj.password
+    })
+
+    if (user) {
+        req.session.user = { userSession: 'teste' }
+        res.redirect('/homepage')
+    } else {
+        console.log("falha")
+
+        res.render('login-page', { error: 'Usuário ou senha incorretos!' })
+    }
+})
+
+module.exports = router

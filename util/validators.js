@@ -1,4 +1,4 @@
-function validarCPF(cpf) {
+function validateCpf(cpf) {
     cpf = cpf.replace(/[^\d]+/g, '') // remove tudo que não for número
 
     // CPF precisa ter 11 dígitos
@@ -28,30 +28,32 @@ function validarCPF(cpf) {
     return true // CPF válido
 }
 
-function returnCpfError(e) {
-    console.log("chamou")
-    if(!validarCPF(document.getElementById('cpf').value)) {
-        e.preventDefault()
-        return Swal.fire({
-            title: "Erro!",
-            text: "CPF inválido!",
-            icon: "error",
-            showConfirmButton: true
-        })
-    }
+function validateUserObject(obj) {
+  return Object.values(obj).every(value => !!value)
 }
 
-function checkTerms(e) {            
-    console.log("chamou")
-    if(!document.getElementById('terms').checked){
-        e.preventDefault()
-        Swal.fire({
-            title: "Erro!",
-            text: "É necessário aceitar os termos para concluir o registro",
-            icon: "error",
-            showConfirmButton: true
-        })
-    }            
-}
+// function returnCpfError(e) {
+//     if(!validateCpf(document.getElementById('cpf').value)) {
+//         e.preventDefault()
+//         return Swal.fire({
+//             title: "Erro!",
+//             text: "CPF inválido!",
+//             icon: "error",
+//             showConfirmButton: true
+//         })
+//     }
+// }
 
-module.exports = checkTerms,returnCpfError
+// function checkTerms(e) {            
+//     if(!document.getElementById('terms').checked){
+//         e.preventDefault()
+//         Swal.fire({
+//             title: "Erro!",
+//             text: "É necessário aceitar os termos para concluir o registro",
+//             icon: "error",
+//             showConfirmButton: true
+//         })
+//     }            
+// }
+
+module.exports = { validateCpf, validateUserObject }
