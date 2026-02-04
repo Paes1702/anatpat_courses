@@ -17,7 +17,11 @@ router.post('/login', async (req, res) => {
     })
 
     if (user) {
-        req.session.user = { userSession: 'teste' }
+        req.session.userId = user._id.toString()
+        req.session.user = {
+            nome: user.nome,
+            cpf: user.cpf
+        }
         res.redirect('/homepage')
     } else {
         console.log("falha")

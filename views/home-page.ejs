@@ -87,19 +87,20 @@
                 </div>
             </div>
 
-            <form action="/home/upload" method="post" enctype="multipart/form-data">
-            <h5 class="text-start">Enviar comprovante de pagamento</h5>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <h5 class="text-start">Enviar comprovante de pagamento</h5>
 
-            <input
-                class="form-control"
-                type="file"
-                name="payment_voucher"
-                required
-            />
+                <input
+                    class="form-control"
+                    type="file"
+                    name="payment_voucher"
+                    accept="image/*,application/pdf"
+                    required
+                />
 
-            <button class="w-100 btn btn-lg btn-outline-primary mt-3" type="submit">
-                Enviar
-            </button>
+                <button class="w-100 btn btn-lg btn-outline-primary mt-3" type="submit">
+                    Enviar Comprovante
+                </button>
             </form>
             <form action="home/logout" method="post">
                 <button class="w-100 btn btn-lg btn-outline-danger" type="submit">Sair</button>
