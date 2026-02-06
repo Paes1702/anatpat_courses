@@ -19,8 +19,6 @@ router.post('/register', async (req, res) => {
         return res.render('register-page', { states: statesData.states, error: errors })
     }
 
-    console.log(obj)
-
     if(!validators.validateUserObject(obj)) {
         errors = 'Favor preencher todos os campos requisitados.'
         return res.render('register-page', { states: statesData.states, error: errors })
@@ -39,7 +37,8 @@ router.post('/register', async (req, res) => {
         crm: obj.crm,
         ufCrm: obj.crmState,
         password: obj.password,
-        hasPaid: false
+        approved: false,
+        isAdmin: false
     }
 
     if(await mongo.findUser(req.app.locals.db, { cpf: obj.cpf })){

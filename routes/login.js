@@ -22,10 +22,12 @@ router.post('/login', async (req, res) => {
             nome: user.nome,
             cpf: user.cpf
         }
-        res.redirect('/homepage')
+        if (user.isAdmin) {
+            res.redirect('/admin')    
+        } else {
+            res.redirect('/homepage')
+        }
     } else {
-        console.log("falha")
-
         res.render('login-page', { error: 'Usuário ou senha incorretos!' })
     }
 })

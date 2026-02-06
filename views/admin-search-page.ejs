@@ -1,0 +1,51 @@
+<!doctype ejs>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Comprovantes</title>
+
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/sweetalert/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="/sweetalert/sweetalert2.min.css">
+</head>
+
+<body class="bg-light">
+  <main class="container mt-5">
+    <div class="card shadow p-4">
+
+      <h4 class="mb-3">Buscar comprovante por CPF</h4>
+
+      <form method="post" action="/admin/search">
+        <input class="form-control mb-3" name="cpf" placeholder="CPF do usuário" required>
+        <button class="btn btn-primary w-100">Buscar</button>
+      </form>
+
+      <% if (result) { %>
+        <hr>
+        <h5>Usuário encontrado</h5>
+        <p><strong>Nome:</strong> <%= result.nome %></p>
+        <p><strong>CPF:</strong> <%= result.cpf %></p>
+
+        <a
+          class="btn btn-success"
+          href="/admin/download/<%= result.fileId %>"
+          target="_blank"
+        >
+          Baixar comprovante
+        </a>
+      <% } %>
+
+    </div>
+  </main>
+
+  <% if (error) { %>
+    <script>
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atenção',
+        text: '<%= error %>'
+      })
+    </script>
+  <% } %>
+</body>
+</html>
