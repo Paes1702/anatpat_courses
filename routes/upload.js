@@ -1,6 +1,6 @@
 const express = require('express')
 const multer = require('multer')
-const mongo = require('../models/Upload')
+const mongoFiles = require('../models/Files')
 
 const router = express.Router()
 
@@ -14,7 +14,7 @@ router.post('/upload', upload.single('payment_voucher'), async (req, res) => {
       return res.status(400).send('Nenhum arquivo enviado')
     }
 
-    const bucket = await mongo.createGridBucket(req.app.locals.db)
+    const bucket = await mongoFiles.createGridBucket(req.app.locals.db)
 
     const uploadStream = bucket.openUploadStream(req.file.originalname, {
       contentType: req.file.mimetype,

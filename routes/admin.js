@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mongoUsers = require('../models/Users')
-const mongoUploads = require('../models/Upload')
+const mongoFiles = require('../models/Files')
 const { ObjectId } = require('mongodb')
 
 //Middleware para validar permissão de administrador
@@ -25,11 +25,18 @@ router.get('/admin', isAdmin, (req, res) => {
   })
 })
 
+router.get('/admin/search', isAdmin, (req, res) => {
+  res.render('admin-search-page', {
+    result: null,
+    error: null
+  })
+})
+
 router.post('/admin/search', isAdmin, async (req, res) => {
   const cpf = req.body.cpf
   const db = req.app.locals.db
 
-  const user = await mongoUsers.findUser(db, { cpf })
+  const user = await mongoUsers.findUser(db, { cpf: cpf })
 
   if (!user) {
     return res.render('admin-search-page', {
@@ -38,8 +45,8 @@ router.post('/admin/search', isAdmin, async (req, res) => {
     })
   }
 
-  const voucher = await mongoUploads.findVoucherByUserId(db, user._id.toString())
-
+  const voucher = await mongoFiles.findVouchersByUserId(db, user._id.toString())
+  
   if (!voucher) {
     return res.render('admin-search-page', {
       result: null,
@@ -51,7 +58,7 @@ router.post('/admin/search', isAdmin, async (req, res) => {
     result: {
       nome: user.nome,
       cpf: user.cpf,
-      fileId: voucher.fileId
+      fileId: voucher[0]._id
     },
     error: null
   })

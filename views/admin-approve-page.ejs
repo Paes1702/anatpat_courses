@@ -24,7 +24,7 @@
         <td><%= p.user.nome %></td>
         <td><%= p.user.cpf %></td>
         <td>
-          <a href="/admin/download/<%= p.fileId %>" class="btn btn-sm btn-secondary">Download</a>
+          <a href="/download/<%= p.fileId %>" class="btn btn-sm btn-secondary">Download</a>
 
           <form method="post" action="/admin/approve" class="d-inline">
             <input type="hidden" name="uploadId" value="<%= p._id %>">

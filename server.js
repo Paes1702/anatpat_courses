@@ -9,6 +9,7 @@ const loginRouter = require('./routes/login')
 const homepageRouter = require('./routes/homepage')
 const registerRouter = require('./routes/register')
 const uploadRouter = require('./routes/upload')
+const downloadRouter = require('./routes/download')
 const adminRouter = require('./routes/admin')
 
 
@@ -37,6 +38,7 @@ mongoDB().then((db) => {
     router.use(homepageRouter)
     router.use(registerRouter)
     router.use(uploadRouter)
+    router.use(downloadRouter)
     router.use(adminRouter)
     
     app.use(router)
