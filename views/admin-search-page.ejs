@@ -1,8 +1,8 @@
-<!doctype ejs>
+<!doctype html>
 <html lang="pt-br">
 <style>
   body {
-      background: url('assets/unicamp-blur.jpg') no-repeat center center fixed;
+      background: url('/assets/unicamp-blur.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -14,8 +14,12 @@
   <title>Admin - Buscar Comprovantes</title>
 
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
+
   <script src="/sweetalert/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="/sweetalert/sweetalert2.min.css">
+
+  <script src="/inputmask/inputmask.min.js"></script>
 </head>
 
 <body class="bg-light">
@@ -25,7 +29,9 @@
       <h4 class="mb-3">Buscar comprovante por CPF</h4>
 
       <form method="post" action="/admin/search">
-        <input class="form-control mb-3" name="cpf" placeholder="CPF do usuário" required>
+        <div class="mb-3">
+          <input class="form-control mb-3" name="cpf" id="cpf" placeholder="CPF do usuário" required>
+        </div>
         <button class="btn btn-primary w-100">Buscar</button>
       </form>
 
@@ -42,7 +48,7 @@
           Baixar comprovante
         </a>
       <% } %>
-
+      <a href="/admin" class="btn btn-link mt-3">Voltar ao painel</a>
     </div>
   </main>
 
@@ -55,5 +61,6 @@
       })
     </script>
   <% } %>
+  <script src="/util/inputmask.js"></script>
 </body>
 </html>

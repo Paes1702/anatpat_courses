@@ -23,12 +23,49 @@ async function findVouchersByUserId(db, userId) {
 async function findVoucherById(db, fileId) {
 
   const file = await getCollection(db)
-  return file
-  .findOne({ _id: fileId })
+  return file.findOne({ _id: fileId })
+}
+
+//obj: { filter object, setValues object }
+async function updateFile(db, filter, changeObj) {
+  const files = await getCollection(db)
+
+  return files.updateOne(filter, changeObj)
+}
+
+async function getPendingFiles(db) {
+
+  const files = await getCollection(db)
+
+  return files.aggregate([
+    {
+      $match: {
+        'metadata.status': 'pending'
+      }
+    },
+    {
+      $addFields: {
+        userObjectId: {
+          $toObjectId: '$metadata.userId'
+        }
+      }
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'userObjectId',
+        foreignField: '_id',
+        as: 'user'
+      }
+    },
+    { $unwind: '$user' }
+  ]).toArray()
 }
 
 module.exports = {
     createGridBucket,
     findVouchersByUserId,
-    findVoucherById
+    findVoucherById,
+    updateFile,
+    getPendingFiles
 }

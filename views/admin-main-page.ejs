@@ -1,9 +1,9 @@
-<!doctype ejs>
+<!doctype html>
 <html lang="pt-br">
 
 <style>
     body {
-        background: url('assets/unicamp-blur.jpg') no-repeat center center fixed;
+        background: url('/assets/unicamp-blur.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -38,6 +38,14 @@
     </div>
 </main>
   
-
+<% if (error) { %>
+    <script>
+        Swal.fire({
+        icon: 'warning',
+        title: 'Atenção',
+        text: '<%= error %>'
+        })
+    </script>
+<% } %>
 </body>
 </html>

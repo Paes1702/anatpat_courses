@@ -15,7 +15,15 @@ async function insertUser(db, userData) {
   return users.insertOne(userData)
 }
 
+//obj: { filter object, setValues object }
+async function updateUser(db, filter, changeObj) {
+  const users = await getCollection(db)
+
+  return users.updateOne(filter, changeObj)
+}
+
 module.exports = {
   findUser,
-  insertUser
+  insertUser,
+  updateUser
 }

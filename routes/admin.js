@@ -19,14 +19,14 @@ async function isAdmin(req, res, next) {
 }
 
 router.get('/admin', isAdmin, (req, res) => {
-  res.render('admin-main-page', {
+  return res.render('admin-main-page', {
     result: null,
     error: null
   })
 })
 
 router.get('/admin/search', isAdmin, (req, res) => {
-  res.render('admin-search-page', {
+  return res.render('admin-search-page', {
     result: null,
     error: null
   })
@@ -41,83 +41,111 @@ router.post('/admin/search', isAdmin, async (req, res) => {
   if (!user) {
     return res.render('admin-search-page', {
       result: null,
-      error: 'Usuário não encontrado'
+      error: 'Usuário não encontrado.'
     })
   }
 
   const voucher = await mongoFiles.findVouchersByUserId(db, user._id.toString())
-  
-  if (!voucher) {
+
+  if (!voucher || voucher.length == 0) {
     return res.render('admin-search-page', {
       result: null,
-      error: 'Usuário ainda não enviou comprovante'
+      error: 'Usuário ainda não enviou comprovante.'
+    })
+  } else {
+    return res.render('admin-search-page', {
+      result: {
+        nome: user.nome,
+        cpf: user.cpf,
+        fileId: voucher[0]._id
+      },
+      error: null
     })
   }
-
-  res.render('admin-search-page', {
-    result: {
-      nome: user.nome,
-      cpf: user.cpf,
-      fileId: voucher[0]._id
-    },
-    error: null
-  })
 })
 
 router.get('/admin/pending', isAdmin, async (req, res) => {
   const db = req.app.locals.db
 
-  const pendentes = await db.collection('uploads').aggregate([
-    { $match: { status: 'pending' } },
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'userId',
-        foreignField: '_id',
-        as: 'user'
-      }
-    },
-    { $unwind: '$user' }
-  ]).toArray()
+  const pendingFiles = await mongoFiles.getPendingFiles(db)
 
-  res.render('admin/pending', { pendentes })
+  res.render('admin-approve-page', { pendingFiles: pendingFiles, error: null })
 })
 
 router.post('/admin/approve', isAdmin, async (req, res) => {
   const db = req.app.locals.db
-  const { uploadId, userId } = req.body
+  const { fileId, userId } = req.query
+  let filter = {}
+  let changeObj = {}
 
-  await db.collection('uploads').updateOne(
-    { _id: new ObjectId(uploadId) },
-    { $set: { status: 'approved' } }
-  )
+  const pendingFiles = await mongoFiles.getPendingFiles(db)
 
-  await db.collection('users').updateOne(
-    { _id: new ObjectId(userId) },
-    { $set: { approved: true } }
-  )
+  filter = { _id: new ObjectId(fileId) }
+  changeObj = { $set: { 'metadata.status': 'approved' } }
+  let result = await mongoFiles.updateFile(db, filter, changeObj)
+  if (!result.matchedCount) {
+    return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: 'Arquivo à ser alterado não encontrado.' })
+  }
 
-  res.redirect('/admin/pending')
+  filter = { _id: new ObjectId(userId) }
+  changeObj = { $set: { approved: true } }
+  result = await mongoUsers.updateUser(db, filter, changeObj)
+  if (!result.matchedCount) {
+    return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: 'Usuário relacionado ao arquivo não encontrado.' })
+  } else {
+    return res.redirect('/admin/pending')
+    // return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: null })
+  }
 })
 
 router.get('/admin/promote', isAdmin, (req, res) => {
-  res.render('admin/promote', { error: null, success: null })
+  return res.render('admin-promote-page', { error: null, user: null })
 })
 
-router.post('/admin/promote', isAdmin, async (req, res) => {
+router.post('/admin/promote/user/:userId', isAdmin, async (req, res) => {
   const db = req.app.locals.db
-  const { cpf } = req.body
+  const userId = req.params.userId.toString()
+  const filter = { _id: new ObjectId(userId) }
 
-  const result = await db.collection('users').updateOne(
-    { cpf },
-    { $set: { isAdmin: true } }
-  )
+  const result = await mongoUsers.updateUser(db, filter, {$set: { isAdmin: true }})  
 
   if (!result.matchedCount) {
-    return res.render('admin/promote', { error: 'Usuário não encontrado', success: null })
+    return res.render('admin-promote-page', { user: null, error: 'Usuário não encontrado' })
+  } else {
+    return res.render('admin-promote-page', { user:null, error: null })
+  }
+})
+
+router.post('/admin/promote/search', isAdmin, async (req, res) => {
+  const { cpf } = req.body
+  const db = req.app.locals.db
+
+  const user = await mongoUsers.findUser(db, { cpf: cpf })
+  if (!user) {
+    return res.render('admin-promote-page', { user: null, error: 'O usuário não foi encontrado' })
+  } else {
+    return res.render('admin-promote-page', { user: user, error: null })
   }
 
-  res.render('admin/promote', { error: null, success: 'Usuário promovido a administrador' })
 })
+
+router.get('/admin/view/:id', isAdmin,async (req, res) => {
+  const db = req.app.locals.db
+  const bucket = await mongoFiles.createGridBucket(db)
+
+  const pendingFiles = await mongoFiles.getPendingFiles(db)
+
+  const fileId = req.params.id.toString()
+
+  const file = await mongoFiles.findVoucherById(db, new ObjectId(fileId))
+  if (!file) {
+    return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: 'Arquivo não encontrado' })
+  }
+
+  res.setHeader('Content-Type', file.contentType || 'application/octet-stream')
+
+  bucket.openDownloadStream(new ObjectId(fileId)).pipe(res)
+})
+
 
 module.exports = router

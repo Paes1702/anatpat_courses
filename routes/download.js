@@ -8,7 +8,6 @@ router.get('/download/:id', async (req, res) => {
   const bucket = await mongoFiles.createGridBucket(db)
 
   const fileId = new ObjectId(req.params.id)
-  console.log(fileId)
 
   const file = await mongoFiles.findVoucherById(db, fileId)
 

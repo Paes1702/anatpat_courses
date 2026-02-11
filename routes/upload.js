@@ -20,7 +20,8 @@ router.post('/upload', upload.single('payment_voucher'), async (req, res) => {
       contentType: req.file.mimetype,
       metadata: {
         userId: req.session.userId,
-        uploadedAt: new Date()
+        uploadedAt: new Date(),
+        status: 'pending'
       }
     })
 
