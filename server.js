@@ -1,10 +1,11 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const session = require('express-session')
 const mongoDB = require('./config/mongo-config')
-const _port = 3000
 const router = require('./routes/index')
 
+const _port = process.env.PORT
 const loginRouter = require('./routes/login')
 const homepageRouter = require('./routes/homepage')
 const registerRouter = require('./routes/register')
@@ -25,7 +26,7 @@ app.set('views', './views')
 app.use(express.urlencoded({ extended: false }))
 
 app.use(session({
-  secret: (new Date()).toString(),
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 } // 1 hora

@@ -1,9 +1,9 @@
 const { MongoClient } = require("mongodb")
 
-const uri = 'mongodb://localhost:27017/'
+const uri = process.env.MONGO_URI
 
 let db
-let dbName = 'anatpatdb'
+let dbName = process.env.MONGO_DB_NAME
 
 async function mongoConnect() {
   if (db) return db // se já estiver conectado, retorna a conexão

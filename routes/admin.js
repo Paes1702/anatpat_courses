@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoUsers = require('../models/Users')
 const mongoFiles = require('../models/Files')
+const { sendApprovalEmail } = require('../config/nodemailer-config');
 const { ObjectId } = require('mongodb')
 
 //Middleware para validar permissão de administrador
@@ -87,12 +88,17 @@ router.post('/admin/approve', isAdmin, async (req, res) => {
     return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: 'Arquivo à ser alterado não encontrado.' })
   }
 
+  
   filter = { _id: new ObjectId(userId) }
   changeObj = { $set: { approved: true } }
+  const user = await mongoUsers.findUser(db, filter)
   result = await mongoUsers.updateUser(db, filter, changeObj)
   if (!result.matchedCount) {
     return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: 'Usuário relacionado ao arquivo não encontrado.' })
   } else {
+    sendApprovalEmail(user).catch(err => {
+      console.error("Erro ao enviar email:", err);
+    });
     return res.redirect('/admin/pending')
     // return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: null })
   }
