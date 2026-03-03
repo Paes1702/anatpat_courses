@@ -11,10 +11,29 @@ const upload = multer({ storage })
 router.post('/upload', upload.single('payment_voucher'), async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).send('Nenhum arquivo enviado')
+      return res.render('home-page', { error: 'Nenhum comprovante foi enviado.' })
+    }
+    const db = req.app.locals.db
+
+    const bucket = await mongoFiles.createGridBucket(db)
+
+    const userFiles = await mongoFiles.findVouchersByUserId(db, req.session.userId)
+    
+    // Procurar se o usuário já tem comprovantes aprovados
+    if (userFiles.find(file => 
+      file.metadata?.status === 'approved'
+    )){
+      return res.render('home-page', { error: 'Um comprovante enviado por este usuário já foi aprovado.' })
     }
 
-    const bucket = await mongoFiles.createGridBucket(req.app.locals.db)
+    // Procurar pendente e deletar
+    const pendingFile = userFiles.find(file => 
+      file.metadata?.status === 'pending'
+    )
+
+    if (pendingFile) {
+      await bucket.delete(pendingFile._id)
+    }
 
     const uploadStream = bucket.openUploadStream(req.file.originalname, {
       contentType: req.file.mimetype,
@@ -28,12 +47,15 @@ router.post('/upload', upload.single('payment_voucher'), async (req, res) => {
     uploadStream.end(req.file.buffer)
 
     uploadStream.on('finish', () => {
-      res.redirect('/homepage')
+      return res.render('home-page', { success: 'Comprovante enviado com sucesso!' })
+    })
+
+    uploadStream.on('error', (err) => {
+      return res.render('home-page', { error: 'Erro no upload do comprovante.' })
     })
 
   } catch (err) {
-    console.error(err)
-    res.status(500).send('Erro no upload')
+    return res.render('home-page', { error: 'Erro no upload do comprovante.' })
   }
 })
 

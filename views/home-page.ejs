@@ -107,5 +107,29 @@
             </form>
         </div>
     </main>
+    <% if(typeof error !== 'undefined') { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                Swal.fire({
+                    title: "Erro!",
+                    text: "<%= error %>",
+                    icon: "error",
+                    showConfirmButton: true
+                })
+            })
+        </script>
+    <% } %>
+    <% if(typeof success !== 'undefined') { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                Swal.fire({
+                    title: "Sucesso!",
+                    text: "<%= success %>",
+                    icon: "success",
+                    showConfirmButton: true
+                })
+            })
+        </script>
+    <% } %>
 </body>
 </html>
