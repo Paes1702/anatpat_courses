@@ -12,6 +12,7 @@ const registerRouter = require('./routes/register')
 const uploadRouter = require('./routes/upload')
 const downloadRouter = require('./routes/download')
 const adminRouter = require('./routes/admin')
+const passResetRouter = require('./routes/passreset')
 
 
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'))
@@ -41,6 +42,7 @@ mongoDB().then((db) => {
     router.use(uploadRouter)
     router.use(downloadRouter)
     router.use(adminRouter)
+    router.use(passResetRouter)
     
     app.use(router)
 })

@@ -3,6 +3,7 @@ const router = express.Router()
 const mongo = require('../models/Users')
 const statesData = require('../assets/data/br-states.json')
 const validators = require('../util/validators')
+const bcrypt = require("bcrypt");
 
 router.get('/register', (req, res) => {
     res.render('register-page', { states: statesData.states, error: undefined })
@@ -24,6 +25,8 @@ router.post('/register', async (req, res) => {
         return res.render('register-page', { states: statesData.states, error: errors })
     }
 
+    const hashedPassword = await bcrypt.hash(obj.password, 10)
+
     let newUser = {
         nome: obj.name,
         endereco: obj.address,
@@ -36,7 +39,7 @@ router.post('/register', async (req, res) => {
         rg: obj.rg,
         crm: obj.crm,
         ufCrm: obj.crmState,
-        password: obj.password,
+        password: hashedPassword,
         approved: false,
         isAdmin: false
     }
