@@ -3,21 +3,8 @@ const router = express.Router()
 const mongoUsers = require('../models/Users')
 const mongoFiles = require('../models/Files')
 const { sendApprovalEmail } = require('../config/nodemailer-config');
+const { isAdmin } = require('../util/middleware')
 const { ObjectId } = require('mongodb')
-
-//Middleware para validar permissão de administrador
-async function isAdmin(req, res, next) {
-    
-    if (!req.session.user) return res.sendStatus(401)
-
-    const user = await mongoUsers.findUser(req.app.locals.db, { _id: new ObjectId(req.session.userId) })
-
-    if (!user.isAdmin) {
-        return res.sendStatus(403)
-    }
-
-  next()
-}
 
 router.get('/admin', isAdmin, (req, res) => {
   return res.render('admin-main-page', {

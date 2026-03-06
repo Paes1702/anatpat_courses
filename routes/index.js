@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 // Rota para a homepage
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   if(req.session.user) {
     res.redirect('/homepage')
   } else {

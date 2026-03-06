@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const mongo = require('../models/Users')
+const mongoUsers = require('../models/Users')
 const statesData = require('../assets/data/br-states.json')
 const validators = require('../util/validators')
 const bcrypt = require("bcrypt");
@@ -44,14 +44,14 @@ router.post('/register', async (req, res) => {
         isAdmin: false
     }
 
-    if(await mongo.findUser(req.app.locals.db, { cpf: obj.cpf })){
+    if(await mongoUsers.findUser(req.app.locals.db, { cpf: obj.cpf })){
         errors = 'Um usuário com esse CPF já está cadastrado.'
         return res.render('login-page', { error: errors })
-    } else if(await mongo.findUser(req.app.locals.db, { email: obj.email })){
+    } else if(await mongoUsers.findUser(req.app.locals.db, { email: obj.email })){
         errors = 'Este e-mail já está em uso.'
         return res.render('login-page', { error: errors })
     } else {
-        await mongo.insertUser(req.app.locals.db, newUser)
+        await mongoUsers.insertUser(req.app.locals.db, newUser)
     }
 
 

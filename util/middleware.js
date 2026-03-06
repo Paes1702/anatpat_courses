@@ -1,0 +1,38 @@
+const mongoUsers = require('../models/Users')
+
+function checkApproved(req, res, next) {
+
+    if (!req.session || !req.session.user) {
+        return res.redirect('/login')
+    }
+
+    if (!req.session.user.approved) {
+        return res.redirect('/homepage/curso')
+    }
+
+    const start = new Date(process.env.COURSE_START_DATE)
+    const end = new Date(process.env.COURSE_END_DATE)
+    const now = new Date()
+
+    if (now < start || now > end) {
+        return res.redirect('/homepage/curso')
+    }
+
+    next()
+}
+
+//Middleware para validar permissão de administrador
+async function isAdmin(req, res, next) {
+    
+    if (!req.session.user) return res.redirect('/login')
+
+    const user = await mongoUsers.findUser(req.app.locals.db, { _id: new ObjectId(req.session.userId) })
+
+    if (!user.isAdmin) {
+        return res.redirect('/login')
+    }
+
+  next()
+}
+
+module.exports = { checkApproved, isAdmin }

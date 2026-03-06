@@ -4,6 +4,8 @@ const app = express()
 const session = require('express-session')
 const mongoDB = require('./config/mongo-config')
 const router = require('./routes/index')
+const { checkApproved } = require('./util/middleware')
+const path = require('path')
 
 const _port = process.env.PORT
 const loginRouter = require('./routes/login')
@@ -30,8 +32,17 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 } // 1 hora
+  cookie: { 
+    maxAge: 1000 * 60 * 60, //1 hora
+    httpOnly: true
+  } 
 }))
+
+app.use(
+    '/curso',
+    checkApproved,
+    express.static(path.join(__dirname, 'curso'))
+)
 
 mongoDB().then((db) => {
     app.locals.db = db

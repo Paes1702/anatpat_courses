@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<style>
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    background: url('/assets/unicamp-blur.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 600px;
+    min-width: 330px;
+    padding: 30px;
+    margin: auto;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+#countdown h2 {
+    font-size: 2.8rem;
+}
+
+#countdown .card {
+    background: rgba(255,255,255,0.9);
+}
+</style>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Curso - Aguardando início</title>
+
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="/sweetalert/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="/sweetalert/sweetalert2.min.css">
+
+<script src="/inputmask/inputmask.min.js"></script>
+
+</head>
+
+<body>
+
+<main class="form-signin card shadow-lg">
+
+<div class="text-center mb-4">
+
+<h3 class="fw-bold">Curso de Patologia <%= new Date().getFullYear() %></h3>
+
+<p class="text-muted">
+Início do curso: <strong><%= startDay.toLocaleString('pt-BR') %></strong>
+</p>
+
+<p class="text-muted mb-0">
+O curso ainda não começou. Contagem regressiva para a liberação:
+</p>
+
+</div>
+
+<div id="countdown" class="row text-center g-3">
+
+<div class="col-3">
+<div class="card border-0 shadow-sm">
+<div class="card-body">
+<h2 id="days" class="fw-bold">0</h2>
+<small class="text-muted">Dias</small>
+</div>
+</div>
+</div>
+
+<div class="col-3">
+<div class="card border-0 shadow-sm">
+<div class="card-body">
+<h2 id="hours" class="fw-bold">0</h2>
+<small class="text-muted">Horas</small>
+</div>
+</div>
+</div>
+
+<div class="col-3">
+<div class="card border-0 shadow-sm">
+<div class="card-body">
+<h2 id="minutes" class="fw-bold">0</h2>
+<small class="text-muted">Minutos</small>
+</div>
+</div>
+</div>
+
+<div class="col-3">
+<div class="card border-0 shadow-sm">
+<div class="card-body">
+<h2 id="seconds" class="fw-bold">0</h2>
+<small class="text-muted">Segundos</small>
+</div>
+</div>
+</div>
+
+</div>
+
+<hr class="my-4">
+
+<form action="/homepage/logout" method="post">
+<button class="w-100 btn btn-lg btn-outline-danger" type="submit">
+Sair
+</button>
+</form>
+
+</main>
+
+<script>
+
+const startDate = new Date("<%= startDay.toISOString() %>").getTime()
+
+const timer = setInterval(() => {
+
+const now = new Date().getTime()
+const distance = startDate - now
+
+if (distance <= 0) {
+
+clearInterval(timer)
+
+window.location.href = "/homepage/curso"
+
+return
+
+}
+
+const days = Math.floor(distance / (1000 * 60 * 60 * 24))
+const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+const seconds = Math.floor((distance % (1000 * 60)) / 1000)
+
+document.getElementById("days").innerText = days
+document.getElementById("hours").innerText = hours
+document.getElementById("minutes").innerText = minutes
+document.getElementById("seconds").innerText = seconds
+
+}, 1000)
+
+</script>
+
+<% if(typeof error !== 'undefined') { %>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+Swal.fire({
+title: "Erro!",
+text: "<%= error %>",
+icon: "error",
+showConfirmButton: true
+})
+})
+</script>
+<% } %>
+
+<% if(typeof success !== 'undefined') { %>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+Swal.fire({
+title: "Sucesso!",
+text: "<%= success %>",
+icon: "success",
+showConfirmButton: true
+})
+})
+</script>
+<% } %>
+
+</body>
+</html>

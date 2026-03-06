@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 // Rota para a homepage
 router.get('/login', (req, res) => {
-  res.render('login-page')
+  return res.render('login-page')
 })
 
 router.post('/login', async (req, res) => {
@@ -17,7 +17,7 @@ router.post('/login', async (req, res) => {
     })
 
     if (!user) {
-        res.render('login-page', { error: 'Usuário ou senha incorretos!' })
+        return res.render('login-page', { error: 'Usuário ou senha incorretos!' })
     }
 
     const senhaValida = await bcrypt.compare(obj.password, user.password);
@@ -30,12 +30,15 @@ router.post('/login', async (req, res) => {
         req.session.userId = user._id.toString()
         req.session.user = {
             nome: user.nome,
-            cpf: user.cpf
+            cpf: user.cpf,
+            approved: user.approved
         }
         if (user.isAdmin) {
-            res.redirect('/admin')    
+            return res.redirect('/admin')    
+        } else if (user.approved){
+            return res.redirect('/homepage/curso')
         } else {
-            res.redirect('/homepage')
+            return res.redirect('/homepage')
         }
     } 
 })
