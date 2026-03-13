@@ -1,0 +1,285 @@
+{
+  "titulo": "Curso de Atualização em Patologia Cirúrgica 2025",
+  "subtitulo": "Aulas on-line gravadas",
+  "certificado": {
+    "texto": "Certificado disponível para download",
+    "arquivo": "certificadonovo.pdf",
+    "obs": "O certificado deverá ser impresso e o nome do participante escrito à mão."
+  },
+  "modulos": [
+    {
+      "titulo": "Cabeça e Pescoço",
+      "id": "cabeca",
+      "professores": [
+        {
+          "nome": "Profª. Dra. Albina Altemani",
+          "foto": "albina2.jpg",
+          "email": "altemani@unicamp.br",
+          "aulas": [
+            { "numero": 1, "titulo": "Neoplasias bifásicas da glândula salivar", "arquivo": "aulaalbina.mp4", "duracao": "1h04min" }
+          ]
+        },
+        {
+          "nome": "Profª. Dra. Fernanda Mariano",
+          "foto": "fernanda.jpg",
+          "email": "fernandamariano@unicamp.br",
+          "aulas": [
+            { "numero": 2, "titulo": "Cistos do complexo maxilofacial", "arquivo": "aulafernanda.mp4", "duracao": "54min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Sistema Osteoarticular e Partes Moles",
+      "id": "osteo",
+      "professores": [
+        {
+          "nome": "Profª. Dra. Eliane M. Ingrid Amstalden",
+          "foto": "ingrid.jpg",
+          "email": "ingrid@unicamp.br",
+          "aulas": [
+            { "numero": 3, "titulo": "Lesões fibroblásticas/miofibroblásticas de partes moles", "arquivo": "aulaingrid3.mp4", "duracao": "1h37min" },
+            { "numero": 4, "titulo": "Lesões intra e periarticulares de importância prática para o patologista", "arquivo": "aulaingrid4.mp4", "duracao": "1h29min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Tireoide e Citologia",
+      "id": "tireoide",
+      "professores": [
+        {
+          "nome": "Profª. Dra. Icleia Siqueira Barreto",
+          "foto": "icleia.jpg",
+          "email": "icleia@unicamp.br",
+          "aulas": [
+            { "numero": 5, "titulo": "Citopatologia da glândula tireoide", "arquivo": "aulaicleia.mp4", "duracao": "57min" }
+          ]
+        },
+        {
+          "nome": "Dr. Ricardo Delfin",
+          "foto": "ricardo.jpg",
+          "email": "ricardodelfin@unicamp.br",
+          "aulas": [
+            { "numero": 6, "titulo": "Correlação do aspecto ultrassonográfico e citológico dos nódulos da tireoide", "arquivo": "aularicardo.mp4", "duracao": "46min" }
+          ]
+        },
+        {
+          "nome": "Dr. Douglas Munhoz Montis",
+          "foto": "douglas.jpg",
+          "email": "douglasmontis@unicamp.br",
+          "aulas": [
+            { "numero": 7, "titulo": "Citopatologia: lesões glandulares do colo uterino", "arquivo": "auladouglas.mp4", "duracao": "52min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Aparelhos Urinário e Genital Masculino",
+      "id": "urinario",
+      "professores": [
+        {
+          "nome": "Prof. Dr. Athanase Billis",
+          "foto": "athanase.jpeg",
+          "email": "athanase@unicamp.br",
+          "aulas": [
+            {
+              "numero": 8,
+              "titulo": "Biópsia prostática de agulha: diagnósticos diferenciais e critérios para avaliação de risco",
+              "partes": [
+                { "label": "Parte 1", "arquivo": "aulaathanase8p1.mp4", "duracao": "1h00min" },
+                { "label": "Parte 2", "arquivo": "aulaathanase8p2.mp4", "duracao": "43min" }
+              ]
+            },
+            {
+              "numero": 9,
+              "titulo": "Tumores renais em adultos: diagnósticos diferenciais",
+              "partes": [
+                { "label": "Parte 1 – Tumores com células de citoplasma claro", "arquivo": "aulaathanase9p1.mp4", "duracao": "38min" },
+                { "label": "Parte 2 – Tumores com células de citoplasma eosinófilo", "arquivo": "aulaathanase9p2.mp4", "duracao": "1h05min" }
+              ]
+            }
+          ]
+        },
+        {
+          "nome": "Dr. Leandro L.L. Freitas",
+          "foto": "leandro.jpg",
+          "email": "leandrollfreitas@gmail.com",
+          "aulas": [
+            { "numero": 10, "titulo": "Lesões não neoplásicas da bexiga", "arquivo": "aulaleandro1.mp4", "duracao": "37min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Aparelho Genital Feminino",
+      "id": "genital-f",
+      "professores": [
+        {
+          "nome": "Profª. Dra. Liliana L.A.L. Andrade",
+          "foto": "liliana.jpg",
+          "email": "liliana@unicamp.br",
+          "aulas": [
+            { "numero": 11, "titulo": "Neoplasias mesenquimatosas do corpo uterino: desafios diagnósticos", "arquivo": "aulaliliana.mp4", "duracao": "1h13min" }
+          ]
+        },
+        {
+          "nome": "Dra. Renata de Marchi Triglia",
+          "foto": "renatinha.jpg",
+          "email": "renatinha@unicamp.br",
+          "aulas": [
+            { "numero": 12, "titulo": "Lesões intraepiteliais escamosas da vulva: antigos e novos desafios", "arquivo": "aularenatinha.mp4", "duracao": "1h00min" }
+          ]
+        },
+        {
+          "nome": "Dra. Renata de Melo Braga Marques",
+          "foto": "renatamarques.jpg",
+          "email": "renatam@unicamp.br",
+          "aulas": [
+            { "numero": 13, "titulo": "Revisando conceitos em patologia mamária: atualizações relevantes para o dia a dia", "arquivo": "aularenatam.mp4", "duracao": "49min" }
+          ]
+        },
+        {
+          "nome": "Dra. Natália Guimarães de Moraes Schenka",
+          "foto": "natalia.jpg",
+          "email": "natalia@unicamp.br",
+          "aulas": [
+            { "numero": 14, "titulo": "Atualização na avaliação do status do HER2 em câncer da mama diante de novas possibilidades terapêuticas", "arquivo": "aulanatalia.mp4", "duracao": "28min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Fígado",
+      "id": "figado",
+      "professores": [
+        {
+          "nome": "Profª. Dra. Larissa Eloy",
+          "foto": "larissa.jpg",
+          "email": "larissa@unicamp.br",
+          "aulas": [
+            {
+              "numero": 15,
+              "titulo": "Diagnósticos diferenciais nas colangiopatias",
+              "partes": [
+                { "label": "Parte 1", "arquivo": "aulalarissa1.mp4", "duracao": "25min" },
+                { "label": "Parte 2", "arquivo": "aulalarissa2.mp4", "duracao": "19min" },
+                { "label": "Parte 3", "arquivo": "aulalarissa3.mp4", "duracao": "16min" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Pulmão",
+      "id": "pulmao",
+      "professores": [
+        {
+          "nome": "Dra. Thaís Ferrarini Tavares",
+          "foto": "thais.jpg",
+          "email": "thais@unicamp.br",
+          "aulas": [
+            { "numero": 16, "titulo": "Adenocarcinoma do pulmão: desafios diagnósticos", "arquivo": "aulathais.mp4", "duracao": "45min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Trato Gastrintestinal",
+      "id": "tgi",
+      "professores": [
+        {
+          "nome": "Dra. Morgana Danubia Gomes de Souza",
+          "foto": "morgana.jpg",
+          "email": "morgana@unicamp.br",
+          "aulas": [
+            { "numero": 17, "titulo": "Lesões colônicas pré-neoplásicas: como o laudo histopatológico pode orientar a conduta clínica", "arquivo": "aulamorgana.mp4", "duracao": "43min" }
+          ]
+        },
+        {
+          "nome": "Dra. Camila Matsunaga de Angelis",
+          "foto": "camila.jpg",
+          "email": "camila@unicamp.br",
+          "aulas": [
+            { "numero": 18, "titulo": "Esôfago de Barrett e lesões precursoras do carcinoma esofágico: desafios da rotina do patologista", "arquivo": "aulacamila.mp4", "duracao": "1h04min" }
+          ]
+        },
+        {
+          "nome": "Prof. Dr. André Almeida Schenka",
+          "foto": "andre.jpg",
+          "email": "andreschenka@unicamp.br",
+          "aulas": [
+            { "numero": 19, "titulo": "Abordagem prática no carcinoma colorretal hereditário: avaliação diagnóstica, prognóstica e preditiva de resposta terapêutica", "arquivo": "aulaandre.mp4", "duracao": "1h46min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Pele",
+      "id": "pele",
+      "professores": [
+        {
+          "nome": "Profª. Dra. Maria Letícia Cintra",
+          "foto": "leticia.jpg",
+          "email": "leticia@unicamp.br",
+          "aulas": [
+            { "numero": 20, "titulo": "Dermatoses associadas a síndromes", "arquivo": "aulaleticia.mp4", "duracao": "53min" }
+          ]
+        },
+        {
+          "nome": "Dr. Rafael Fantelli Stelini",
+          "foto": "rafael.jpg",
+          "email": "rafael@unicamp.br",
+          "aulas": [
+            { "numero": 21, "titulo": "Melanoma cutâneo: diagnóstico e microestadiamento", "arquivo": "aularafael.mp4", "duracao": "1h14min" }
+          ]
+        },
+        {
+          "nome": "Dra. Katariny Parreira de Oliveira Alves",
+          "foto": "katy.jpg",
+          "email": "katy@unicamp.br",
+          "aulas": [
+            { "numero": 22, "titulo": "Histopatologia das alopecias: abordagem prática", "arquivo": "aulakaty.mp4", "duracao": "1h41min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Sistema Nervoso",
+      "id": "sn",
+      "professores": [
+        {
+          "nome": "Prof. Dr. Fábio Rogério",
+          "foto": "fabiorog.jpg",
+          "email": "fabiorogerio@unicamp.br",
+          "aulas": [
+            { "numero": 23, "titulo": "Exame intraoperatório de congelação em neuropatologia: chegar a um só diagnóstico ou grupos diagnósticos", "arquivo": "aulafabio.mp4", "duracao": "58min" }
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Hemopoético",
+      "id": "hemo",
+      "professores": [
+        {
+          "nome": "Dr. Leandro L.L. Freitas",
+          "foto": "leandro.jpg",
+          "email": "leandrollfreitas@gmail.com",
+          "aulas": [
+            { "numero": 24, "titulo": "Avaliação histológica da medula óssea no contexto de citopenias periféricas", "arquivo": "aulaleandro2.mp4", "duracao": "53min" }
+          ]
+        },
+        {
+          "nome": "Dr. João F.L. Bonfitto",
+          "foto": "joao.jpg",
+          "email": "joaobonfitto@unicamp.br",
+          "aulas": [
+            { "numero": 25, "titulo": "As diversas faces de um linfonodo reacional: padrões morfológicos e diagnósticos diferenciais", "arquivo": "aulajoao.mp4", "duracao": "42min" }
+          ]
+        }
+      ]
+    }
+  ]
+}

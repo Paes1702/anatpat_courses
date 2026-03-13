@@ -45,7 +45,8 @@ router.post('/admin/search', isAdmin, async (req, res) => {
       result: {
         nome: user.nome,
         cpf: user.cpf,
-        fileId: voucher[0]._id
+        fileId: voucher[0]._id,
+        userId: user._id
       },
       error: null
     })

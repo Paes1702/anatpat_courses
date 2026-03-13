@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="page-title">Curso de Atualização em Patologia Cirúrgica</title>
+  <link rel="modulepreload" href="./config_curso.json">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --accent: #8b6f47;
+      --light-bg: #f8f5f0;
+      --border: #ddd6cc;
+      --text: #333;
+    }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background-color: #e8e0d5;
+      color: var(--text);
+    }
+    .site-header {
+      background: var(--primary);
+      color: #fff;
+      padding: 2.5rem 1rem 2rem;
+      text-align: center;
+    }
+    .site-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    .site-header .subtitle {
+      font-size: 1rem;
+      opacity: 0.8;
+      font-style: italic;
+    }
+    .certificate-bar {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 0.65rem 1rem;
+      font-size: 0.92rem;
+    }
+    .certificate-bar a { color: #fff; font-weight: 600; text-decoration: underline; }
+
+    .main-wrapper {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .sticky-nav {
+      position: sticky;
+      top: 1rem;
+    }
+    .nav-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      padding: 0.6rem 0.75rem 0.2rem;
+      font-weight: 700;
+    }
+    .nav-pills .nav-link {
+      color: var(--primary);
+      font-size: 0.82rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+    }
+    .nav-pills .nav-link:hover { background: var(--border); }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.4rem;
+      margin: 2.5rem 0 1.5rem;
+    }
+
+    .instructor-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+    }
+    .instructor-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.09); }
+    .instructor-photo {
+      width: 90px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 7px;
+      flex-shrink: 0;
+      background: var(--border);
+    }
+    .instructor-photo-placeholder {
+      width: 90px;
+      height: 110px;
+      border-radius: 7px;
+      flex-shrink: 0;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #aaa;
+    }
+    .instructor-name {
+      font-weight: 600;
+      font-size: 0.97rem;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+    .lesson-item {
+      margin-bottom: 0.45rem;
+      font-size: 0.9rem;
+    }
+    .lesson-num {
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: 3px;
+    }
+    .lesson-item a { color: var(--primary); text-decoration: underline; }
+    .lesson-item a:hover { color: var(--accent); }
+    .lesson-duration {
+      color: #888;
+      font-size: 0.8rem;
+      margin-left: 4px;
+    }
+    .contact-email {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      color: #777;
+    }
+    .contact-email a { color: var(--accent); }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #888;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 767px) {
+      .instructor-card { flex-direction: column; }
+      .instructor-photo, .instructor-photo-placeholder { width: 70px; height: 85px; }
+    }
+
+    /* Video modal */
+    #videoModal .modal-dialog { max-width: 860px; }
+    #videoModal .modal-content { background: #111; border: none; border-radius: 10px; overflow: hidden; }
+    #videoModal .modal-header {
+      background: var(--primary);
+      border: none;
+      padding: 0.75rem 1.25rem;
+    }
+    #videoModal .modal-title {
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+    }
+    #videoModal .btn-close { filter: invert(1); }
+    #videoModal .modal-body { padding: 0; background: #000; }
+    #videoModal video {
+      width: 100%;
+      max-height: 75vh;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<!-- Video Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="videoModalTitle">Aula</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <video id="videoPlayer" controls controlsList="nodownload" oncontextmenu="return false;">
+          Seu navegador não suporta reprodução de vídeo.
+        </video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <h1 id="header-title"></h1>
+  <div class="subtitle" id="header-subtitle"></div>
+</header>
+<div class="certificate-bar" id="cert-bar"></div>
+
+<div class="main-wrapper">
+  <div class="row g-4">
+    <div class="col-md-3 d-none d-md-block">
+      <nav class="sticky-nav">
+        <div class="nav-section-title">Módulos</div>
+        <ul class="nav nav-pills flex-column" id="nav-list"></ul>
+      </nav>
+    </div>
+    <div class="col-md-9" id="course-content"></div>
+  </div>
+</div>
+
+<footer>
+  <p id="footer-text"></p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script type="module">
+import CURSO from './config_curso.json' with { type: 'json' }
+
+document.getElementById('page-title').textContent = CURSO.titulo;
+document.getElementById('header-title').textContent = CURSO.titulo;
+document.getElementById('header-subtitle').textContent = CURSO.subtitulo;
+document.getElementById('footer-text').textContent = '© ' + CURSO.titulo;
+
+const cert = CURSO.certificado;
+document.getElementById('cert-bar').innerHTML =
+  cert.texto + ' — <a href="' + cert.arquivo + '">Clique aqui para download</a>' +
+  (cert.obs ? ' &nbsp;|&nbsp; <em style="font-weight:300">' + cert.obs + '</em>' : '');
+
+const navList = document.getElementById('nav-list');
+const contentEl = document.getElementById('course-content');
+
+CURSO.modulos.forEach(function(mod) {
+  // nav
+  var li = document.createElement('li');
+  li.className = 'nav-item';
+  li.innerHTML = '<a class="nav-link" href="#' + mod.id + '">' + mod.titulo + '</a>';
+  navList.appendChild(li);
+
+  // heading
+  var h = document.createElement('h2');
+  h.className = 'section-heading';
+  h.id = mod.id;
+  h.textContent = mod.titulo;
+  contentEl.appendChild(h);
+
+  mod.professores.forEach(function(prof) {
+    var card = document.createElement('div');
+    card.className = 'instructor-card';
+
+    var photoHTML = prof.foto
+      ? '<img src="' + prof.foto + '" alt="' + prof.nome + '" class="instructor-photo" onerror="this.outerHTML=\'<div class=&quot;instructor-photo-placeholder&quot;>👤</div>\'">'
+      : '<div class="instructor-photo-placeholder">👤</div>';
+
+    var aulasHTML = '';
+    prof.aulas.forEach(function(aula) {
+      aulasHTML += '<div class="lesson-item"><span class="lesson-num">Aula ' + aula.numero + ':</span> ';
+      if (aula.partes && aula.partes.length) {
+        aulasHTML += '<span>' + aula.titulo + '</span>';
+        aula.partes.forEach(function(p) {
+          aulasHTML += '<div style="margin-left:1rem;margin-top:3px;font-size:0.87rem"><a href="#" onclick="openVideo(\'' + p.arquivo + '\',\'' + p.label.replace(/'/g,"\\'") + ' — ' + aula.titulo.replace(/'/g,"\\'") + '\');return false;">' + p.label + '</a><span class="lesson-duration">' + p.duracao + '</span></div>';
+        });
+      } else {
+        aulasHTML += '<a href="#" onclick="openVideo(\'' + aula.arquivo + '\',\'Aula ' + aula.numero + ' — ' + aula.titulo.replace(/'/g,"\\'") + '\');return false;">' + aula.titulo + '</a>';
+        if (aula.duracao) aulasHTML += '<span class="lesson-duration">' + aula.duracao + '</span>';
+      }
+      aulasHTML += '</div>';
+    });
+
+    var emailHTML = prof.email
+      ? '<div class="contact-email">Perguntas: <a href="mailto:' + prof.email + '">' + prof.email + '</a></div>'
+      : '';
+
+    card.innerHTML = photoHTML + '<div style="flex:1"><div class="instructor-name">' + prof.nome + '</div>' + aulasHTML + emailHTML + '</div>';
+    contentEl.appendChild(card);
+  });
+});
+
+// Video modal
+function openVideo(src, title) {
+  var player = document.getElementById('videoPlayer');
+  var modalTitle = document.getElementById('videoModalTitle');
+  modalTitle.textContent = title;
+  player.src = src;
+  player.load();
+  var modal = new bootstrap.Modal(document.getElementById('videoModal'));
+  modal.show();
+}
+
+// Stop video when modal is closed
+document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
+  var player = document.getElementById('videoPlayer');
+  player.pause();
+  player.src = '';
+});
+</script>
+</body>
+</html>

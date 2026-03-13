@@ -17,4 +17,7 @@ yarn-error.log*
 # build
 dist/
 build/
-curso/
+curso/*
+!curso/index.html
+!curso/config_curso.json
+!curso/config_certificado.json

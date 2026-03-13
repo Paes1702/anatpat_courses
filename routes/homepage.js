@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const path = require("path")
 
 // Rota para a homepage
 router.get('/homepage', (req, res) => {
@@ -26,6 +25,10 @@ router.post('/homepage/logout', (req, res) => {
 
 router.get('/homepage/curso', async (req, res) => {
 
+  if(!req.session.user) {
+    return res.render('login-page', { error: "Você precisa estar logado para acessar esta página" })
+  }
+
   const courseStart = new Date(process.env.COURSE_START_DATE)
   const courseEnd = new Date(process.env.COURSE_END_DATE)
   const now = new Date()
@@ -33,6 +36,8 @@ router.get('/homepage/curso', async (req, res) => {
   if (req.session.user.approved){
     if (now >= courseStart && now <= courseEnd) {
       return res.redirect('/curso/index.html')
+    } if (now > courseEnd) {
+      return res.render('course-end-certificate')
     } else {
       return res.render('course-standby-page', { startDay: courseStart })
     }
