@@ -202,7 +202,6 @@
   <h1 id="header-title"></h1>
   <div class="subtitle" id="header-subtitle"></div>
 </header>
-<div class="certificate-bar" id="cert-bar"></div>
 
 <div class="main-wrapper">
   <div class="row g-4">
@@ -228,11 +227,6 @@ document.getElementById('page-title').textContent = CURSO.titulo;
 document.getElementById('header-title').textContent = CURSO.titulo;
 document.getElementById('header-subtitle').textContent = CURSO.subtitulo;
 document.getElementById('footer-text').textContent = '© ' + CURSO.titulo;
-
-const cert = CURSO.certificado;
-document.getElementById('cert-bar').innerHTML =
-  cert.texto + ' — <a href="' + cert.arquivo + '">Clique aqui para download</a>' +
-  (cert.obs ? ' &nbsp;|&nbsp; <em style="font-weight:300">' + cert.obs + '</em>' : '');
 
 const navList = document.getElementById('nav-list');
 const contentEl = document.getElementById('course-content');

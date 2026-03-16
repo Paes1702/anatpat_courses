@@ -2,26 +2,7 @@
   "tituloLinha1": "Curso de Atualização em Patologia Cirúrgica",
   "tituloLinha2": "Online — 2025",
   "nomeCurso": "Curso de Atualização em Patologia Cirúrgica - Online — 2025",
-  "dataInicio": "13 de outubro de 2025",
-  "dataFim": "13 de abril de 2026",
   "totalHoras": 31,
   "cidade": "Campinas",
-  "dataEmissao": "13 de abril de 2026",
-  "assinante1": {
-    "nome": "Prof. Dr. Athanase Billis",
-    "cargo": "Coordenador",
-    "assinaturaImg": "/assets/assinatura-billis.png"
-  },
-  "assinante2": {
-    "nome": "Profa. Dra. Icleia Siqueira Barreto",
-    "cargo": "Coordenadora",
-    "assinaturaImg": "/assets/assinatura-icleia.png"
-  },
-  "logos": [
-    { "src": "/assets/logos/sbp.png",      "alt": "Sociedade Brasileira de Patologia" },
-    { "src": "/assets/logos/cna.png",      "alt": "CNA" },
-    { "src": "/assets/logos/livromed.png", "alt": "Livraria Livromed" },
-    { "src": "/assets/logos/allkimia.png", "alt": "Allkimia" },
-    { "src": "/assets/logos/outset.png",   "alt": "OutSet" }
-  ]
+  "dataEmissao": "13 de abril de 2026"
 }
