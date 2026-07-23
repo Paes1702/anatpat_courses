@@ -54,6 +54,7 @@
           <tr>
             <th>Nome</th>
             <th>CPF</th>
+            <th>E-mail</th>
             <th>Nome do Arquivo</th>
             <th>Ações</th>
           </tr>
@@ -63,6 +64,7 @@
             <tr>
               <td><%= v.user.nome %></td>
               <td><%= v.user.cpf %></td>
+              <td><%= v.user.email %></td>
               <td><%= v.filename %></td>
               <td class="d-flex gap-2">
                 <a href="<%= basePath %>/download/<%= v._id %>" 
