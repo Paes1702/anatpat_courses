@@ -3,12 +3,12 @@ const router = express.Router()
 const mongo = require('../models/Users')
 const bcrypt = require("bcrypt");
 
-// Rota para a homepage
 router.get('/login', (req, res) => {
   return res.render('login-page')
 })
 
 router.post('/login', async (req, res) => {
+    const bp = res.locals.basePath
 
     obj = req.body
 
@@ -34,11 +34,11 @@ router.post('/login', async (req, res) => {
             approved: user.approved
         }
         if (user.isAdmin) {
-            return res.redirect('/admin')    
+            return res.redirect(bp + '/admin')    
         } else if (user.approved){
-            return res.redirect('/homepage/curso')
+            return res.redirect(bp + '/homepage/curso')
         } else {
-            return res.redirect('/homepage')
+            return res.redirect(bp + '/homepage')
         }
     } 
 })

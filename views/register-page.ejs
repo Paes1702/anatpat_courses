@@ -8,7 +8,7 @@
 
     body {
         display: flex;
-        background: url("/assets/unicamp-blur.jpg") no-repeat center center fixed; 
+        background: url("<%= basePath %>/assets/unicamp-blur.jpg") no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -39,13 +39,13 @@
 
     <title>Cadastro</title>
 
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/ootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
+    <link href="<%= basePath %>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="<%= basePath %>/bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
 
-    <script src="/sweetalert/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="/sweetalert/sweetalert2.min.css">
+    <script src="<%= basePath %>/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="<%= basePath %>/sweetalert/sweetalert2.min.css">
 
-    <script src="/inputmask/inputmask.min.js"></script>
+    <script src="<%= basePath %>/inputmask/inputmask.min.js"></script>
 
     <style>
         .swal-text {
@@ -86,7 +86,7 @@
 
 <body class="text-center">
     <main class="form-signin card shadow align-middle">
-        <form action="/register" method="post" id="registerForm">
+        <form action="<%= basePath %>/register" method="post" id="registerForm">
             <div class="row gx-3 gy-3">
                 <div class="col-12">
                     <h5>Curso Uropatologia <%= new Date().getFullYear() %></h5>
@@ -205,6 +205,6 @@
         </script>
     <% } %>
 
-    <script src="util/inputmask.js"></script>
+    <script src="<%= basePath %>/util/inputmask.js"></script>
 </body>
 </html>

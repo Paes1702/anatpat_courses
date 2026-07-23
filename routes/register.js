@@ -10,10 +10,21 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-    
+    const bp = res.locals.basePath
     let errors = ''
-
     let obj = req.body
+
+    if(!validators.validateCpf(obj.cpf)) {
+        errors += '- O número do CPF é inválido!\n'
+    }
+
+    if(!obj.terms) {
+        errors += '- É necessário aceitar os termos para concluir o registro.\n'
+    }
+
+    if(!obj.email.includes("@", ".")) {
+        errors += '- O e-mail inserido é inválido.\n'
+    }
 
     if(obj.password !== obj.passwordConfirmation) {
         errors = 'A senha de confirmação está diferente da senha inserida.'
@@ -53,22 +64,22 @@ router.post('/register', async (req, res) => {
     } else {
         await mongoUsers.insertUser(req.app.locals.db, newUser)
     }
-
-
-    if(!validators.validateCpf(obj.cpf)) {
-        errors += '- O número do CPF é inválido!\n'
-    }
-
-    if(!obj.terms) {
-        errors += '- É necessário aceitar os termos para concluir o registro.\n'
-    }
-
-    if(!obj.email.includes("@", ".")) {
-        errors += '- O e-mail inserido é inválido.\n'
-    }
     
     if(!errors) {
-        return res.render('home-page')
+	user = await mongoUsers.findUser(req.app.locals.db, { cpf: obj.cpf })
+        console.log(user)
+	if (user) {
+		req.session.userId = user._id.toString()
+        	req.session.user = {
+            		nome: user.nome,
+            		cpf: user.cpf,
+            		approved: user.approved
+        	}
+
+        	return res.render('home-page')
+	} else {
+	  return res.render('login-page')
+	}
     } else {
         return res.render('register-page', { states: statesData.states, error: errors })
     }

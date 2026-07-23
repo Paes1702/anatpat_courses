@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <style>
   body {
-      background: url('/assets/unicamp-blur.jpg') no-repeat center center fixed;
+      background: url('<%= basePath %>/assets/unicamp-blur.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -13,13 +13,13 @@
   <meta charset="UTF-8">
   <title>Admin - Buscar Comprovantes</title>
 
-  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
+  <link href="<%= basePath %>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="<%= basePath %>/bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
 
-  <script src="/sweetalert/sweetalert2.min.js"></script>
-  <link rel="stylesheet" href="/sweetalert/sweetalert2.min.css">
+  <script src="<%= basePath %>/sweetalert/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="<%= basePath %>/sweetalert/sweetalert2.min.css">
 
-  <script src="/inputmask/inputmask.min.js"></script>
+  <script src="<%= basePath %>/inputmask/inputmask.min.js"></script>
 </head>
 
 <body class="bg-light">
@@ -28,7 +28,7 @@
 
       <h4 class="mb-3">Buscar comprovante por CPF</h4>
 
-      <form method="post" action="/admin/search">
+      <form method="post" action="<%= basePath %>/admin/search">
         <div class="mb-3">
           <input class="form-control mb-3" name="cpf" id="cpf" placeholder="CPF do usuário" required>
         </div>
@@ -43,12 +43,12 @@
 
         <a
           class="btn btn-success"
-          href="/download/<%= result.fileId %>"
+          href="<%= basePath %>/download/<%= result.fileId %>"
         >
           Baixar comprovante
         </a>
       <% } %>
-      <a href="/admin" class="btn btn-link mt-3">Voltar ao painel</a>
+      <a href="<%= basePath %>/admin" class="btn btn-link mt-3">Voltar ao painel</a>
     </div>
   </main>
 
@@ -61,6 +61,6 @@
       })
     </script>
   <% } %>
-  <script src="/util/inputmask.js"></script>
+  <script src="<%= basePath %>/util/inputmask.js"></script>
 </body>
 </html>

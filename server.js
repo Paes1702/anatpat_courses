@@ -8,6 +8,8 @@ const { checkApproved } = require('./util/middleware')
 const path = require('path')
 
 const _port = process.env.PORT
+const BASE_PATH = process.env.BASE_PATH || ''
+
 const loginRouter = require('./routes/login')
 const homepageRouter = require('./routes/homepage')
 const registerRouter = require('./routes/register')
@@ -17,6 +19,11 @@ const adminRouter = require('./routes/admin')
 const passResetRouter = require('./routes/passreset')
 const certificateRouter = require('./routes/certificate')
 
+// Injeta basePath em todas as views automaticamente
+app.use((req, res, next) => {
+    res.locals.basePath = BASE_PATH
+    next()
+})
 
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'))
 app.use('/sweetalert', express.static('./node_modules/sweetalert2/dist'))
@@ -47,6 +54,7 @@ app.use(
 
 mongoDB().then((db) => {
     app.locals.db = db
+    app.locals.BASE_PATH = BASE_PATH
   
     router.use(loginRouter)
     router.use(homepageRouter)
@@ -57,7 +65,7 @@ mongoDB().then((db) => {
     router.use(passResetRouter)
     router.use(certificateRouter)
     
-    app.use(router)
+    app.use('/', router)
 })
 
 
@@ -67,4 +75,4 @@ app.listen(_port, (error) =>{
     else 
         console.log("Error occurred, server can't start", error)
     }
-);
+)

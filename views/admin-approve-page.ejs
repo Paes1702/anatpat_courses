@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <style>
   body {
-      background: url('/assets/unicamp-blur.jpg') no-repeat center center fixed;
+      background: url('<%= basePath %>/assets/unicamp-blur.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -13,11 +13,11 @@
   <meta charset="UTF-8">
   <title>Admin - Aprovar Comprovantes</title>
 
-  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="/bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
+  <link href="<%= basePath %>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="<%= basePath %>/bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>
 
-  <script src="/sweetalert/sweetalert2.min.js"></script>
-  <link rel="stylesheet" href="/sweetalert/sweetalert2.min.css">
+  <script src="<%= basePath %>/sweetalert/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="<%= basePath %>/sweetalert/sweetalert2.min.css">
 </head>
 <script>
   function previewVoucher(id, contentType) {
@@ -26,14 +26,14 @@
     
     if (contentType.includes('pdf')) {
       const iframe = document.createElement('iframe')
-      iframe.src = `/admin/view/${id.toString()}`
+      iframe.src = `<%= basePath %>/admin/view/${id.toString()}`
       iframe.style.width = '100%'
       iframe.style.height = '80vh'
       iframe.style.border = 'none'
       container.appendChild(iframe)
     } else {
       const img = document.createElement('img')
-      img.src = `/admin/view/${id.toString()}`
+      img.src = `<%= basePath %>/admin/view/${id.toString()}`
       img.className = 'img-fluid'
       container.appendChild(img)
     }
@@ -48,7 +48,7 @@
 <body>
   <main class="d-flex justify-content-center align-items-center min-vh-100">
     <div class="card shadow p-4 bg-white w-75">
-      <a href="/admin" class="btn btn-link mt-3">Voltar ao painel</a>
+      <a href="<%= basePath %>/admin" class="btn btn-link mt-3">Voltar ao painel</a>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -65,7 +65,7 @@
               <td><%= v.user.cpf %></td>
               <td><%= v.filename %></td>
               <td class="d-flex gap-2">
-                <a href="/download/<%= v._id %>" 
+                <a href="<%= basePath %>/download/<%= v._id %>" 
                 class="btn btn-sm btn-outline-primary">
                 Baixar
                 </a>
@@ -76,7 +76,7 @@
                 Visualizar
                 </button>
 
-                <form action="/admin/approve?fileId=<%= v._id %>&userId=<%= v.user._id %>" method="post">
+                <form action="<%= basePath %>/admin/approve?fileId=<%= v._id %>&userId=<%= v.user._id %>" method="post">
                   <button class="btn btn-sm btn-outline-success">
                     Aprovar
                   </button>

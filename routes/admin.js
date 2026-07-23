@@ -7,17 +7,11 @@ const { isAdmin } = require('../util/middleware')
 const { ObjectId } = require('mongodb')
 
 router.get('/admin', isAdmin, (req, res) => {
-  return res.render('admin-main-page', {
-    result: null,
-    error: null
-  })
+  return res.render('admin-main-page', { result: null, error: null })
 })
 
 router.get('/admin/search', isAdmin, (req, res) => {
-  return res.render('admin-search-page', {
-    result: null,
-    error: null
-  })
+  return res.render('admin-search-page', { result: null, error: null })
 })
 
 router.post('/admin/search', isAdmin, async (req, res) => {
@@ -27,27 +21,16 @@ router.post('/admin/search', isAdmin, async (req, res) => {
   const user = await mongoUsers.findUser(db, { cpf: cpf })
 
   if (!user) {
-    return res.render('admin-search-page', {
-      result: null,
-      error: 'Usuário não encontrado.'
-    })
+    return res.render('admin-search-page', { result: null, error: 'Usuário não encontrado.' })
   }
 
   const voucher = await mongoFiles.findVouchersByUserId(db, user._id.toString())
 
   if (!voucher || voucher.length == 0) {
-    return res.render('admin-search-page', {
-      result: null,
-      error: 'Usuário ainda não enviou comprovante.'
-    })
+    return res.render('admin-search-page', { result: null, error: 'Usuário ainda não enviou comprovante.' })
   } else {
     return res.render('admin-search-page', {
-      result: {
-        nome: user.nome,
-        cpf: user.cpf,
-        fileId: voucher[0]._id,
-        userId: user._id
-      },
+      result: { nome: user.nome, cpf: user.cpf, fileId: voucher[0]._id, userId: user._id },
       error: null
     })
   }
@@ -55,13 +38,12 @@ router.post('/admin/search', isAdmin, async (req, res) => {
 
 router.get('/admin/pending', isAdmin, async (req, res) => {
   const db = req.app.locals.db
-
   const pendingFiles = await mongoFiles.getPendingFiles(db)
-
   res.render('admin-approve-page', { pendingFiles: pendingFiles, error: null })
 })
 
 router.post('/admin/approve', isAdmin, async (req, res) => {
+  const bp = res.locals.basePath
   const db = req.app.locals.db
   const { fileId, userId } = req.query
   let filter = {}
@@ -76,7 +58,6 @@ router.post('/admin/approve', isAdmin, async (req, res) => {
     return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: 'Arquivo à ser alterado não encontrado.' })
   }
 
-  
   filter = { _id: new ObjectId(userId) }
   changeObj = { $set: { approved: true } }
   const user = await mongoUsers.findUser(db, filter)
@@ -87,8 +68,7 @@ router.post('/admin/approve', isAdmin, async (req, res) => {
     sendApprovalEmail(user).catch(err => {
       console.error("Erro ao enviar email:", err);
     });
-    return res.redirect('/admin/pending')
-    // return res.render('admin-approve-page', { pendingFiles: pendingFiles, error: null })
+    return res.redirect(bp + '/admin/pending')
   }
 })
 
@@ -120,15 +100,12 @@ router.post('/admin/promote/search', isAdmin, async (req, res) => {
   } else {
     return res.render('admin-promote-page', { user: user, error: null })
   }
-
 })
 
-router.get('/admin/view/:id', isAdmin,async (req, res) => {
+router.get('/admin/view/:id', isAdmin, async (req, res) => {
   const db = req.app.locals.db
   const bucket = await mongoFiles.createGridBucket(db)
-
   const pendingFiles = await mongoFiles.getPendingFiles(db)
-
   const fileId = req.params.id.toString()
 
   const file = await mongoFiles.findVoucherById(db, new ObjectId(fileId))
@@ -137,9 +114,7 @@ router.get('/admin/view/:id', isAdmin,async (req, res) => {
   }
 
   res.setHeader('Content-Type', file.contentType || 'application/octet-stream')
-
   bucket.openDownloadStream(new ObjectId(fileId)).pipe(res)
 })
-
 
 module.exports = router

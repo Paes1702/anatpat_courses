@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <style>
   body {
-      background: url('/assets/unicamp-blur.jpg') no-repeat center center fixed;
+      background: url('<%= basePath %>/assets/unicamp-blur.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -13,13 +13,13 @@
   <meta charset="UTF-8">
   <title>Admin - Promover Usuário</title>
 
-  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="/bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>  
+  <link href="<%= basePath %>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="<%= basePath %>/bootstrap/js/bootstrap.bundle.min.js" rel="stylesheet"></script>  
 
-  <script src="/sweetalert/sweetalert2.min.js"></script>
-  <link rel="stylesheet" href="/sweetalert/sweetalert2.min.css">
+  <script src="<%= basePath %>/sweetalert/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="<%= basePath %>/sweetalert/sweetalert2.min.css">
 
-  <script src="/inputmask/inputmask.min.js"></script>
+  <script src="<%= basePath %>/inputmask/inputmask.min.js"></script>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
         <div class="card p-4 shadow" style="max-width: 500px; width: 100%;">
             <h4 class="text-center mb-3">Promover Administrador</h4>
 
-            <form action="/admin/promote/search" method="post">
+            <form action="<%= basePath %>/admin/promote/search" method="post">
             <div class="mb-3">
                 <label class="form-label" for="cpf">CPF do usuário</label>
                 <input 
@@ -59,7 +59,7 @@
                 </ul>
 
                 <% if (!user.isAdmin) { %>
-                    <form action="/admin/promote/user/<%= user._id %>" method="post">
+                    <form action="<%= basePath %>/admin/promote/user/<%= user._id %>" method="post">
                     <button class="btn btn-outline-success w-100">
                         Promover para administrador
                     </button>
@@ -71,7 +71,7 @@
                 <% } %>
             <% } %>
 
-            <a href="/admin" class="btn btn-link mt-3">Voltar ao painel</a>
+            <a href="<%= basePath %>/admin" class="btn btn-link mt-3">Voltar ao painel</a>
         </div>
     </main>
 
@@ -84,6 +84,6 @@
             })
         </script>
     <% } %>
-    <script src="/util/inputmask.js"></script>
+    <script src="<%= basePath %>/util/inputmask.js"></script>
 </body>
 </html>

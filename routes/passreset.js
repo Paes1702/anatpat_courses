@@ -11,28 +11,24 @@ router.get('/forgot-password', async (req, res) => {
 })
 
 router.post('/forgot-password', async (req, res) => {
-
+  const bp = res.locals.basePath
   const { email } = req.body
-
   const db = req.app.locals.db
 
   const user = await mongoUsers.findUser(db, { email: email })
 
   if (!user) {
-    return res.redirect("/login");
+    return res.redirect(bp + "/login");
   }
 
   const token = crypto.randomBytes(32).toString("hex");
-
   const filter = { _id: new ObjectId(user._id) }
-
-  const changeObj = 
-    {
-        $set: {
-            resetToken: token,
-            resetTokenExpires: Date.now() + 3600000
-        }
-    }
+  const changeObj = {
+      $set: {
+          resetToken: token,
+          resetTokenExpires: Date.now() + 3600000
+      }
+  }
 
   const result = await mongoUsers.updateUser(db, filter, changeObj)
 
@@ -48,7 +44,6 @@ router.post('/forgot-password', async (req, res) => {
 })
 
 router.get('/reset-password/:token', async (req, res) => {
-
   const db = req.app.locals.db
 
   const user = await mongoUsers.findUser(db, {
@@ -60,12 +55,11 @@ router.get('/reset-password/:token', async (req, res) => {
     return res.render("new-password-page", { error: "Token inválido ou expirado." });
   }
 
-  res.render("new-password-page", {
-    token: req.params.token
-  })
+  res.render("new-password-page", { token: req.params.token })
 })
 
 router.post('/reset-password/:token', async (req, res) => {
+  const bp = res.locals.basePath
 
   if (req.body.password !== req.body.passwordConfirm) {
     return res.render('new-password-page', { token: req.params.token , error: "Favor inserir a mesma senha nos dois campos." })
@@ -83,17 +77,11 @@ router.post('/reset-password/:token', async (req, res) => {
   }
 
   const hashed = await bcrypt.hash(req.body.password, 10);
-
   const filter = { _id: new ObjectId(user._id) }
-
-  const changeObj = 
-    {
-      $set: { password: hashed },
-      $unset: {
-        resetToken: "",
-        resetTokenExpires: ""
-      }
-    }
+  const changeObj = {
+    $set: { password: hashed },
+    $unset: { resetToken: "", resetTokenExpires: "" }
+  }
 
   const result = await mongoUsers.updateUser(db, filter, changeObj)
 
@@ -101,7 +89,7 @@ router.post('/reset-password/:token', async (req, res) => {
     return res.render('new-password-page', { error: 'Não foi possível redefinir a senha.' })
   }
 
-  res.redirect("/login");
+  res.redirect(bp + "/login");
 })
 
 module.exports = router

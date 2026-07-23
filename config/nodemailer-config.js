@@ -17,7 +17,7 @@ async function sendApprovalEmail(user) {
       <h2>Parabéns, ${user.nome}!</h2>
       <p>Sua conta foi aprovada por um administrador.</p>
       <p>Agora você já pode acessar a plataforma de cursos no link abaixo com o mesmo usuário e senha criados normalmente.</p>
-      <a href="${process.env.LINK_CURSOS}">Fazer login</a>
+      <a href="${process.env.LINK_CURSOS}">Fazer login </a> (Acesso ao Curso Uropatologia Cirúrgica 2026)
     `
   }
 
@@ -26,7 +26,7 @@ async function sendApprovalEmail(user) {
 
 async function sendPasswordResetEmail(token, email) {
 
-  const link = `${process.env.BASE_URL}/reset-password/${token}`
+  const link = `${process.env.BASE_URL}/${process.env.BASE_PATH}/reset-password/${token}`
 
   const mailOptions = {
     from: `"AnatPat Cursos" <${process.env.EMAIL_USER}>`,
