@@ -59,7 +59,7 @@ body {
 <h3 class="fw-bold">Curso de Patologia <%= new Date().getFullYear() %></h3>
 
 <p class="text-muted">
-Início do curso: <strong><%= startDay.toLocaleString('pt-BR') %></strong>
+Início do curso: <strong><%= startDay.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }) %></strong>
 </p>
 
 <p class="text-muted mb-0">

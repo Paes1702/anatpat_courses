@@ -16,13 +16,13 @@ router.get('/admin/certificate/:userId', isAdmin, async (req, res) => {
       return res.status(404).send('Usuário não encontrado.')
     }
 
-    const courseStart = new Date(process.env.COURSE_START_DATE)
-    const courseEnd = new Date(process.env.COURSE_END_DATE)
+    const courseStart = new Date(process.env.COURSE_START_DATE + "T00:00:00-03:00")
+    const courseEnd = new Date(process.env.COURSE_END_DATE + "T00:00:00-03:00")
 
     let certConfig = certificateConfig
 
-    certConfig.dataInicio = courseStart.toLocaleDateString("pt-BR", { day: "numeric", month: "long" })
-    certConfig.dataFim = courseEnd.toLocaleDateString("pt-BR", { day: "numeric", month: "long" })
+    certConfig.dataInicio = courseStart.toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo", day: "numeric", month: "long" })
+    certConfig.dataFim = courseEnd.toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo", day: "numeric", month: "long" })
     certConfig.dataEmissao = new Date().toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo", day: "numeric", month: "long" })
 
     return res.render('certificate-template', { user, certConfig })
@@ -47,8 +47,8 @@ router.get('/certificate', async (req, res) => {
       return res.redirect(bp + '/homepage')
     }
 
-    const courseEnd = new Date(process.env.COURSE_END_DATE + "T00:00:00")
-    const courseStart = new Date(process.env.COURSE_START_DATE + "T00:00:00")
+    const courseEnd = new Date(process.env.COURSE_END_DATE + "T00:00:00-03:00")
+    const courseStart = new Date(process.env.COURSE_START_DATE + "T00:00:00-03:00")
     const now = new Date()
 
     let certConfig = certificateConfig

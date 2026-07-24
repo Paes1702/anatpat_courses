@@ -27,8 +27,8 @@ router.get('/homepage/curso', async (req, res) => {
     return res.render('login-page', { error: "Você precisa estar logado para acessar esta página" })
   }
 
-  const courseStart = new Date(process.env.COURSE_START_DATE)
-  const courseEnd = new Date(process.env.COURSE_END_DATE)
+  const courseStart = new Date(process.env.COURSE_START_DATE + "T00:00:00-03:00")
+  const courseEnd = new Date(process.env.COURSE_END_DATE + "T00:00:00-03:00")
   const now = new Date()
 
   if (req.session.user.approved){

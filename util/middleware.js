@@ -12,8 +12,8 @@ function checkApproved(req, res, next) {
         return res.redirect(bp + '/homepage/curso')
     }
 
-    const start = new Date(process.env.COURSE_START_DATE)
-    const end = new Date(process.env.COURSE_END_DATE)
+    const start = new Date(process.env.COURSE_START_DATE + "T00:00:00-03:00")
+    const end = new Date(process.env.COURSE_END_DATE + "T00:00:00-03:00")
     const now = new Date()
 
     if (now < start || now > end) {
